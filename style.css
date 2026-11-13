@@ -2,142 +2,181 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
-
-body {
-  background-color: #08080a;
-  color: #e0e0e0;
-  font-family: 'Hiragino Mincho ProN', 'Yu Mincho', serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
   user-select: none;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
   overflow: hidden;
+  font-family: 'Segoe UI', 'Hiragino Kaku Gothic ProN', sans-serif;
+  background-color: #000;
 }
 
-#game-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
+#gameCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
-header {
-  width: 800px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 2px solid #550000;
-  padding-bottom: 8px;
+#danger-flash {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 0, 0, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.08s;
+  z-index: 5;
 }
 
-h1 {
-  font-size: 22px;
-  color: #cc1111;
-  letter-spacing: 2px;
-  text-shadow: 0 0 12px rgba(255, 0, 0, 0.7);
+#danger-flash.active {
+  opacity: 1;
+}
+
+.hidden {
+  display: none !important;
 }
 
 #hud {
-  display: flex;
-  gap: 24px;
-  align-items: center;
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 16px;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
 }
 
-#score {
-  color: #ffd700;
-  font-weight: bold;
+#back-btn {
+  pointer-events: auto;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 10px 28px;
   font-size: 20px;
+  font-weight: bold;
+  color: #222;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ccc;
+  cursor: pointer;
 }
 
-#stamina-bar-bg {
-  display: inline-block;
-  width: 120px;
-  height: 12px;
-  background-color: #222;
-  border: 1px solid #555;
-  border-radius: 6px;
+#back-btn:hover {
+  background: #ffffff;
+}
+
+#score-box {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 42px;
+  font-weight: bold;
+  color: #222;
+  text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.9), -1px -1px 0px rgba(255, 255, 255, 0.9);
+}
+
+.star-icon {
+  color: #ffcc00;
+  font-size: 46px;
+}
+
+.slash {
+  font-size: 36px;
+  margin: 0 4px;
+}
+
+#crosshair {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 22px;
+}
+
+#stamina-container {
+  position: absolute;
+  bottom: 45px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 240px;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
   overflow: hidden;
-  vertical-align: middle;
-  margin-left: 6px;
 }
 
 #stamina-bar {
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, #0088ff, #00ffcc);
-  transition: width 0.05s linear;
+  background: #00e5ff;
 }
 
-#canvas-wrapper {
-  position: relative;
-  width: 800px;
-  height: 550px;
-  border: 3px solid #440000;
-  box-shadow: 0 0 30px rgba(180, 0, 0, 0.4);
-}
-
-canvas {
-  display: block;
-  background-color: #141418;
+#controls-hint {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  padding: 5px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  white-space: nowrap;
 }
 
 #overlay {
   position: absolute;
   inset: 0;
-  background: rgba(5, 0, 0, 0.85);
+  background: rgba(0, 0, 0, 0.72);
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
-  text-align: center;
+  z-index: 20;
 }
 
-#overlay.hidden {
-  display: none;
+.panel {
+  background: rgba(20, 10, 10, 0.95);
+  border: 2px solid #cc0000;
+  padding: 35px 45px;
+  text-align: center;
+  color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+  max-width: 550px;
 }
 
 #overlay-title {
-  font-size: 44px;
-  color: #ff1a1a;
-  letter-spacing: 4px;
-  text-shadow: 0 0 20px #ff0000;
+  font-size: 40px;
+  color: #ff3333;
+  margin-bottom: 16px;
+  letter-spacing: 2px;
 }
 
 #overlay-desc {
   font-size: 16px;
-  color: #ccc;
-  line-height: 1.6;
+  line-height: 1.7;
+  color: #ddd;
+  margin-bottom: 24px;
 }
 
 #start-btn {
-  padding: 12px 32px;
-  font-size: 18px;
-  font-family: inherit;
+  padding: 14px 48px;
+  font-size: 22px;
   font-weight: bold;
   color: #fff;
-  background-color: #880000;
-  border: 2px solid #ff3333;
+  background: #cc0000;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
 }
 
 #start-btn:hover {
-  background-color: #cc0000;
-  transform: scale(1.05);
+  background: #ff1111;
 }
 
-footer {
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 13px;
+.credit {
+  margin-top: 14px;
+  font-size: 11px;
   color: #888;
-}
-
-footer strong {
-  color: #ddd;
 }

@@ -3,36 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>鬼ごっこスター - 恐怖の追跡</title>
+  <title>鬼が追ってくる 3D</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="game-container">
-    <header>
-      <h1>👹 鬼の館 - STAR ESCAPE 👹</h1>
-      <div id="hud">
-        <div class="hud-item">集めた星: <span id="score">0</span> / <span id="target-score">10</span></div>
-        <div class="hud-item">
-          スタミナ:
-          <div id="stamina-bar-bg">
-            <div id="stamina-bar"></div>
-          </div>
-        </div>
-      </div>
-    </header>
+  <!-- 3Dゲーム画面 -->
+  <canvas id="gameCanvas"></canvas>
 
-    <div id="canvas-wrapper">
-      <canvas id="gameCanvas" width="800" height="550"></canvas>
-      <div id="overlay">
-        <h2 id="overlay-title">鬼から逃げ切れ</h2>
-        <p id="overlay-desc">暗闇に潜む鬼から逃げながら、星を10個集めろ。</p>
-        <button id="start-btn">ゲーム開始（音が出ます）</button>
-      </div>
+  <!-- 見つかった時の赤フラッシュ演出 -->
+  <div id="danger-flash"></div>
+
+  <!-- ゲーム中のUI -->
+  <div id="hud" class="hidden">
+    <button id="back-btn">BACK</button>
+    <div id="score-box">
+      <span class="star-icon">★</span>
+      <span id="score">0</span> <span class="slash">／</span> <span id="total">10</span>
     </div>
+    <div id="crosshair">+</div>
+    <div id="stamina-container">
+      <div id="stamina-bar"></div>
+    </div>
+    <div id="controls-hint">
+      移動: W A S D / 矢印キー ｜ 視点: マウス移動（または ← → キー） ｜ ダッシュ: Shift
+    </div>
+  </div>
 
-    <footer>
-      <p>移動: <strong>WASD</strong> または <strong>矢印キー</strong> ｜ ダッシュ: <strong>Shift</strong>（スタミナ消費）</p>
-    </footer>
+  <!-- タイトル・結果画面 -->
+  <div id="overlay">
+    <div class="panel">
+      <h1 id="overlay-title">鬼が追ってくる</h1>
+      <p id="overlay-desc">
+        迷路に散らばる「星」を10個集めろ。<br>
+        角の向こうに潜む鬼に見つかると、猛スピードで襲いかかってくる！
+      </p>
+      <button id="start-btn">ゲーム開始（BGMが流れます）</button>
+      <p class="credit">BGM：死刑実習 / H/MIX GALLERY（秋山裕和）</p>
+    </div>
   </div>
 
   <script src="script.js"></script>
