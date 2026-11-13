@@ -1,0 +1,143 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #08080a;
+  color: #e0e0e0;
+  font-family: 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  user-select: none;
+  overflow: hidden;
+}
+
+#game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+header {
+  width: 800px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #550000;
+  padding-bottom: 8px;
+}
+
+h1 {
+  font-size: 22px;
+  color: #cc1111;
+  letter-spacing: 2px;
+  text-shadow: 0 0 12px rgba(255, 0, 0, 0.7);
+}
+
+#hud {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 16px;
+}
+
+#score {
+  color: #ffd700;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+#stamina-bar-bg {
+  display: inline-block;
+  width: 120px;
+  height: 12px;
+  background-color: #222;
+  border: 1px solid #555;
+  border-radius: 6px;
+  overflow: hidden;
+  vertical-align: middle;
+  margin-left: 6px;
+}
+
+#stamina-bar {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #0088ff, #00ffcc);
+  transition: width 0.05s linear;
+}
+
+#canvas-wrapper {
+  position: relative;
+  width: 800px;
+  height: 550px;
+  border: 3px solid #440000;
+  box-shadow: 0 0 30px rgba(180, 0, 0, 0.4);
+}
+
+canvas {
+  display: block;
+  background-color: #141418;
+}
+
+#overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 0, 0, 0.85);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+
+#overlay.hidden {
+  display: none;
+}
+
+#overlay-title {
+  font-size: 44px;
+  color: #ff1a1a;
+  letter-spacing: 4px;
+  text-shadow: 0 0 20px #ff0000;
+}
+
+#overlay-desc {
+  font-size: 16px;
+  color: #ccc;
+  line-height: 1.6;
+}
+
+#start-btn {
+  padding: 12px 32px;
+  font-size: 18px;
+  font-family: inherit;
+  font-weight: bold;
+  color: #fff;
+  background-color: #880000;
+  border: 2px solid #ff3333;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+}
+
+#start-btn:hover {
+  background-color: #cc0000;
+  transform: scale(1.05);
+}
+
+footer {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 13px;
+  color: #888;
+}
+
+footer strong {
+  color: #ddd;
+}
